@@ -7,18 +7,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Update Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install --only-upgrade docker-ce docker-ce-cli containerd.io
-
-      - name: Build with Buildozer in Docker
-        run: |
-          docker pull kivy/buildozer:stable
-          docker run --rm -v "${{ github.workspace }}":/home/user/hostcwd kivy/buildozer:stable android debug
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          command: buildozer android debug
+          buildozer_version: stable
+          image: kivy/buildozer:stable
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: snake-apk
-          path: bin/*.apk
+          path: ${{ steps.buildozer.outputs.filename }}
