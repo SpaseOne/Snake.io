@@ -5,11 +5,12 @@ package.domain = org.spasenik
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,wav
 version = 1.0
-requirements = python3, pygame-ce
+requirements = python3==3.10.12, pygame-ce
 orientation = portrait
 fullscreen = 1
 android.archs = arm64-v8a, armeabi-v7a
 android.accept_sdk_license = True
+p4a.branch = develop
 
 [buildozer]
 log_level = 2
